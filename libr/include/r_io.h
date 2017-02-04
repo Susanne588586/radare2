@@ -11,7 +11,7 @@
 #define R_IO_READ	4
 #define R_IO_WRITE	2
 #define R_IO_EXEC	1
-#define R_IO_RW		R_IO_READ|R_IO_WRITE
+#define R_IO_RW		(R_IO_READ|R_IO_WRITE)
 //remove R_IO_MAP asap
 #define R_IO_MAP	8
 #define R_IO_PRIV	16
