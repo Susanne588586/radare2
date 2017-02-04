@@ -413,7 +413,7 @@ static int cmd_open(void *data, const char *input) {
 		"o"," [file] 0x4000","map file at 0x4000",
 		"on"," [file] 0x4000","map raw file at 0x4000 (no r_bin involved)",
 		"ob","[lbdos] [...]","list open binary files backed by fd",
-		"of", " fd", "priorize RIODesc with fd (bring to the front in pa)"
+		"oF", " fd", "priorize RIODesc with fd (bring to the front in pa)",
 		"ob"," 4","priorize io and fd on 4 (bring to binfile to front)",
 		"om","[?]","create, list, remove IO maps",
 		"ox", " fd fdx", "exchange the descs of fd and fdx and keep the mapping",
@@ -590,6 +590,12 @@ static int cmd_open(void *data, const char *input) {
 			eprintf ("Usage: of [path-to-file]\n");
 		}
 		break;
+	case 'F':
+		if (input[1] == ' ') {
+			int fd = r_num_math (core->num, &input[2]);
+			r_io_desc_use (core->io, fd);
+		}
+		break;
 	case 'n': // "on"
 		// like in r2 -n
 		isn = 1;
@@ -622,6 +628,7 @@ static int cmd_open(void *data, const char *input) {
 			}
 		}
 		break;
+#if 0
 	case 'F':
 		{
 			RListIter *iter = NULL;
@@ -673,6 +680,7 @@ static int cmd_open(void *data, const char *input) {
 			free (fn);
 		}
 		break;
+#endif
 	case 'b':
 		cmd_open_bin (core, input);
 		break;
